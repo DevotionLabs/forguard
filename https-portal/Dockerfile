@@ -1,0 +1,2 @@
+ARG HTTPS_PORTAL_VERSION
+FROM steveltn/https-portal:${HTTPS_PORTAL_VERSION}
