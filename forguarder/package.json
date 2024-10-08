@@ -1,0 +1,18 @@
+{
+  "name": "forguarder",
+  "version": "0.1.0",
+  "description": "ForGuard monorepo",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test --workspaces",
+    "build": "npm run build --workspaces"
+  },
+  "author": "Diego (DevotionLabs)",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  },
+  "workspaces": [
+    "./packages/*"
+  ]
+}
