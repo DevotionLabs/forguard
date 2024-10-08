@@ -1,4 +1,4 @@
 import { routesMap, Server } from "./server/index.js";
 
-const server = new Server(routesMap, 3000);
+const server = new Server(3000, routesMap);
 server.start();

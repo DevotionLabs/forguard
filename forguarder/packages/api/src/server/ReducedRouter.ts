@@ -1,14 +1,21 @@
 import { Router, RouterOptions } from "express";
-import { ServerRoute } from "./routes/types.js";
+import { RoutesMap, ServerRoute } from "./routes/types.js";
 
 export class ReducedRouter {
   private router: Router;
 
-  constructor(options?: RouterOptions) {
+  constructor(routesMap: RoutesMap, options?: RouterOptions) {
     this.router = Router(options);
+    this.addRoutesMap(routesMap);
   }
 
-  public addRoutes(routes: ServerRoute[], subpath?: string) {
+  private addRoutesMap(routesMap: RoutesMap) {
+    Object.entries(routesMap).forEach(([subpath, routes]) =>
+      this.addRoutes(routes, subpath)
+    );
+  }
+
+  private addRoutes(routes: ServerRoute[], subpath?: string) {
     routes.forEach((route) => this.addRoute(route, subpath));
   }
 
