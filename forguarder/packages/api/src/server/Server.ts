@@ -1,10 +1,10 @@
 import express, { RouterOptions } from "express";
-import { ReducedRouter } from "./ReducedRouter.js";
-import { RoutesMap } from "./routes/types.js";
+import { ReducedRouter } from "./ReducedRouter";
+import { RoutesMap } from "./routes/types";
 
 export class Server {
   private port: number;
-  private api;
+  private api: express.Application;
 
   constructor(
     port: number,
@@ -24,7 +24,7 @@ export class Server {
 
   public start() {
     this.api.listen(this.port, () => {
-      return console.log(`ForGuarder server is listening at port ${this.port}`);
+      console.log(`ForGuarder server is listening at port ${this.port}`);
     });
   }
 }

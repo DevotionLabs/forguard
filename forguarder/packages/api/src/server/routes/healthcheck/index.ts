@@ -1,5 +1,5 @@
-import { ServerRoute } from "../types.js";
-import { handleHealthcheck } from "./handlers/handleHealthCheck.js";
+import { ServerRoute } from "../types";
+import { handleHealthcheck } from "./handlers/handleHealthCheck";
 
 const healthcheckRoutes: ServerRoute[] = [
   {

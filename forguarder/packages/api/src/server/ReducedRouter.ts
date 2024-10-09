@@ -1,5 +1,5 @@
 import { Router, RouterOptions } from "express";
-import { RoutesMap, ServerRoute } from "./routes/types.js";
+import { RoutesMap, ServerRoute } from "./routes/types";
 
 export class ReducedRouter {
   private router: Router;
