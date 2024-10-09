@@ -25,8 +25,9 @@ export class ReducedRouter {
     this.router[method](fullpath, handler);
   }
 
-  // TODO: Return a copy of the router, not the router itself
   public getRouter() {
-    return this.router;
+    const clonedRouter = Router();
+    clonedRouter.use(this.router);
+    return clonedRouter;
   }
 }
