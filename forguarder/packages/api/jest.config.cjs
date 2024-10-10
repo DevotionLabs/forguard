@@ -15,5 +15,6 @@ module.exports = {
   moduleNameMapper: {
     "^@src/(.*)$": "<rootDir>/src/$1",
     "^@server/(.*)$": "<rootDir>/src/server/$1",
+    "^@logger/(.*)$": "<rootDir>/src/logger/$1",
   },
 };

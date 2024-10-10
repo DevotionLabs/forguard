@@ -7,8 +7,10 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@server/*": ["src/server/*"],
-      "@services/*": ["src/services/*"]
+      "@logger": ["src/logger/index"],
+      "@logger/*": ["src/logger/*"],
+      "@server": ["src/server/index"],
+      "@server/*": ["src/server/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],
