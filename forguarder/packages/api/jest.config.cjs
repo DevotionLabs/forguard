@@ -10,11 +10,12 @@ module.exports = {
   collectCoverageFrom: [
     "<rootDir>/src/**/*.ts",
     "!<rootDir>/src/**/*.d.ts", // Exclude TypeScript declaration files
-    "!<rootDir>/src/services/docker/**/*", // Exclude auto-generated files in docker folder
+    "!<rootDir>/src/services/docker/**/generated/*", // Exclude auto-generated files in docker folder
   ],
   moduleNameMapper: {
     "^@src/(.*)$": "<rootDir>/src/$1",
     "^@server/(.*)$": "<rootDir>/src/server/$1",
     "^@logger/(.*)$": "<rootDir>/src/logger/$1",
+    "^@compose/(.*)$": "<rootDir>/src/services/docker/compose/$1",
   },
 };
