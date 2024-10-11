@@ -7,10 +7,9 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["src/*"],
-      "@logger": ["src/logger/index"],
       "@logger/*": ["src/logger/*"],
-      "@server": ["src/server/index"],
-      "@server/*": ["src/server/*"]
+      "@server/*": ["src/server/*"],
+      "@compose/*": ["src/services/docker/compose/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],
