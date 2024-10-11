@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build-compose:
@@ -21,10 +20,10 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Show docker compose version
-        uses: docker compose version
+        run: docker compose version
 
       - name: Check compose format
-        uses: docker compose config
+        run: docker compose config
 
       - name: Build compose
-        uses: docker compose build
+        run: docker compose build
