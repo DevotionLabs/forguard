@@ -19,6 +19,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Show docker compose version
+        uses: docker compose version
+
       - name: Check compose format
         uses: docker compose config
 
