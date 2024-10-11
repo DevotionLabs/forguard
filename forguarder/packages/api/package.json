@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "generate-api-routes": "openapi-generator-cli generate -i ./src/services/docker/engine/spec/v1.43.yaml -g typescript-axios -o ./src/services/docker/engine/generated"
+    "generate-api-routes": "openapi-generator-cli generate -i ./src/services/docker/engine/spec/v1.43.yaml -g typescript-axios -o ./src/services/docker/engine/generated",
+    "download-compose-spec": "wget -O ./src/services/docker/compose/file/spec/compose-spec.json https://raw.githubusercontent.com/compose-spec/compose-spec/main/schema/compose-spec.json",
+    "generate-compose-types": "json2ts -i ./src/services/docker/compose/file/spec/compose-spec.json -o ./src/services/docker/compose/file/generated/types.d.ts"
   },
   "author": "Diego (DevotionLabs)",
   "license": "GPL-3.0",
@@ -24,6 +26,7 @@
     "@types/supertest": "^6.0.2",
     "jest": "^29.7.0",
     "jest-express": "^1.12.0",
+    "json-schema-to-typescript": "^15.0.2",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5"
   }
