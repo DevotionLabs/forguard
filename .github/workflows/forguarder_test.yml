@@ -45,7 +45,4 @@ jobs:
           FORGUARD_API_PORT: ${{ env.FORGUARD_API_PORT }}
 
       - name: Wait for the server to be UP
-        run: npx --yes wait-on http://localhost:${{ env.FORGUARD_API_PORT }} --timeout 1m
-
-      - name: Check the server is responding to requests
-        run: curl --fail http://localhost:${{ env.FORGUARD_API_PORT }}/healthcheck || (echo "Server did not respond to the test request" && exit 1)
+        run: npx --yes wait-on http://localhost:${{ env.FORGUARD_API_PORT }}/healthcheck --timeout 1m
