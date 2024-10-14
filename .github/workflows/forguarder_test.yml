@@ -35,3 +35,12 @@ jobs:
 
       - name: Run tests
         run: npm run test
+
+      - name: Start API server (background)
+        run: FORGUARD_API_PORT=3030 npm run start &
+
+      - name: Wait for the server to be UP
+        run: sleep 10
+
+      - name: Check the server is responding to requests
+        run: curl --fail http://localhost:3030/healthcheck || (echo "Server did not respond to the test request" && exit 1)
