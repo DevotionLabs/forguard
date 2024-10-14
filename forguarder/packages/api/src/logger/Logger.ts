@@ -1,4 +1,4 @@
-import { SeverityColors, SeverityLevels } from "./types";
+import { SeverityColors, SeverityLevels } from "./types.js";
 
 const severityColors: SeverityColors = {
   info: "\x1b[32m", // Green

@@ -1,4 +1,4 @@
-import { Logger } from "@logger/index";
+import { Logger } from "../../../src/logger/index";
 
 describe("Logger", () => {
   beforeEach(() => {

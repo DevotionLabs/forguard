@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "start": "node dist/index.js",
     "generate-api-routes": "openapi-generator-cli generate -i ./src/services/docker/engine/spec/v1.43.yaml -g typescript-axios -o ./src/services/docker/engine/generated",
     "download-compose-spec": "wget -O ./src/services/docker/compose/file/spec/compose-spec.json https://raw.githubusercontent.com/compose-spec/compose-spec/main/schema/compose-spec.json",
     "generate-compose-types": "json2ts -i ./src/services/docker/compose/file/spec/compose-spec.json -o ./src/services/docker/compose/file/generated/types.d.ts"

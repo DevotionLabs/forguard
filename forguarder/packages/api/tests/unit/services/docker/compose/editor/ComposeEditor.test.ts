@@ -1,11 +1,11 @@
 import fs from "fs";
-import yaml, { dump } from "js-yaml";
-import { ComposeEditor } from "@compose/index";
-import { Logger } from "@logger/index";
+import { dump } from "js-yaml";
+import { ComposeEditor } from "../../../../../../src/services/docker/compose/index";
+import { Logger } from "../../../../../../src/logger/index";
 
 // Mock the fs and yaml modules
 jest.mock("fs");
-jest.mock("@logger/index");
+jest.mock("../../../../../../src/logger/Logger");
 
 describe("ComposeEditor", () => {
   const mockPath = "./test-docker-compose.yml";
@@ -18,7 +18,7 @@ describe("ComposeEditor", () => {
   });
 
   it("should load the compose file correctly", () => {
-    spiedRead.mockReturnValue(yaml.dump(mockComposeData));
+    spiedRead.mockReturnValue(dump(mockComposeData));
 
     const editor = new ComposeEditor(mockPath);
 

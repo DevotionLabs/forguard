@@ -1,7 +1,7 @@
 import express from "express";
-import { ReducedRouter } from "@server/ReducedRouter";
-import { RoutesMap } from "@server/routes/types";
 import request from "supertest";
+import { ReducedRouter } from "../../../src/server/ReducedRouter";
+import { RoutesMap } from "../../../src/server/routes/types";
 
 describe("ReducedRouter", () => {
   let app: express.Application;

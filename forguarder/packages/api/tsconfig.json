@@ -4,14 +4,7 @@
     "moduleResolution": "node",
     "types": ["node", "jest"],
     "outDir": "./dist",
-    "baseUrl": "./",
-    "paths": {
-      "@src/*": ["src/*"],
-      "@logger/*": ["src/logger/*"],
-      "@server/*": ["src/server/*"],
-      "@compose/*": ["src/services/docker/compose/*"]
-    }
   },
-  "include": ["src/**/*", "tests/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
