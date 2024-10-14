@@ -1,6 +1,6 @@
 import express from "express";
-import healthcheckRoutes from "@server/routes/healthcheck/index";
 import request from "supertest";
+import healthcheckRoutes from "../../../../../src/server/routes/healthcheck/index";
 import { addRoutesToApi } from "../addRoutesToApi";
 
 describe("Healthcheck Routes", () => {

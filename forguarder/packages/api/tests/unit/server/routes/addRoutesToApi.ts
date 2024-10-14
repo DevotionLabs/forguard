@@ -1,5 +1,5 @@
 import express from "express";
-import { ServerRoute } from "@server/routes/types";
+import { ServerRoute } from "../../../../src/server/routes/types";
 
 export function addRoutesToApi(
   routes: ServerRoute[],

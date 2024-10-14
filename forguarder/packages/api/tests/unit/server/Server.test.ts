@@ -1,7 +1,7 @@
 import http from "http";
-import { RoutesMap } from "@server/routes/types";
 import request from "supertest";
-import { Server } from "@server/Server";
+import { RoutesMap } from "../../../src/server/routes/types";
+import { Server } from "../../../src/server/index";
 
 describe("Server class", () => {
   const routesMap: RoutesMap = {

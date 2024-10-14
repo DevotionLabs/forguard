@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test --workspaces",
-    "build": "npm run build --workspaces"
+    "build": "npm run build --workspaces",
+    "clean": "rimraf node_modules packages/*/node_modules packages/*/dist packages/*/coverage"
   },
   "author": "Diego (DevotionLabs)",
   "license": "GPL-3.0",
   "devDependencies": {
+    "rimraf": "^6.0.1",
     "typescript": "^5.6.2"
   },
   "workspaces": [

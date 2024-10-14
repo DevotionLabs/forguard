@@ -1,6 +1,6 @@
 import express, { RouterOptions } from "express";
-import { ReducedRouter } from "./ReducedRouter";
-import { RoutesMap } from "./routes/types";
+import { ReducedRouter } from "./ReducedRouter.js";
+import { RoutesMap } from "./routes/types.js";
 
 export class Server {
   private port: number;
