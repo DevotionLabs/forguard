@@ -12,6 +12,9 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      FORGUARD_API_PORT: 3030
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,10 +40,12 @@ jobs:
         run: npm run test
 
       - name: Start API server (background)
-        run: FORGUARD_API_PORT=3030 npm run start --workspace api &
+        run: npm run start --workspace api &
+        env:
+          FORGUARD_API_PORT: ${{ env.FORGUARD_API_PORT }}
 
       - name: Wait for the server to be UP
-        run: sleep 10
+        run: npx --yes wait-on http://localhost:${{ env.FORGUARD_API_PORT }} --timeout 1m
 
       - name: Check the server is responding to requests
-        run: curl --fail http://localhost:3030/healthcheck || (echo "Server did not respond to the test request" && exit 1)
+        run: curl --fail http://localhost:${{ env.FORGUARD_API_PORT }}/healthcheck || (echo "Server did not respond to the test request" && exit 1)
