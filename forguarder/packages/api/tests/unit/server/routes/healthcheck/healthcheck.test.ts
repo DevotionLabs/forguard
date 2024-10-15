@@ -4,17 +4,17 @@ import healthcheckRoutes from "../../../../../src/server/routes/healthcheck/inde
 import { addRoutesToApi } from "../addRoutesToApi";
 
 describe("Healthcheck Routes", () => {
-  let app: express.Application;
+	let app: express.Application;
 
-  beforeAll(() => {
-    app = express();
+	beforeAll(() => {
+		app = express();
 
-    addRoutesToApi(healthcheckRoutes, app);
-  });
+		addRoutesToApi(healthcheckRoutes, app);
+	});
 
-  it("should respond with healthy status on GET /", async () => {
-    const response = await request(app).get("/");
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({ status: "healthy" });
-  });
+	it("should respond with healthy status on GET /", async () => {
+		const response = await request(app).get("/");
+		expect(response.status).toBe(200);
+		expect(response.body).toEqual({ status: "healthy" });
+	});
 });

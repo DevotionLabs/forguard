@@ -1219,10 +1219,7 @@ definitions:
           enum:
             - {}
           default: {}
-        example: {
-          "80/tcp": {},
-          "443/tcp": {}
-        }
+        example: { "80/tcp": {}, "443/tcp": {} }
       Tty:
         description: |
           Attach standard streams to a TTY, including `stdin` if it is not closed.
@@ -1406,10 +1403,7 @@ definitions:
           enum:
             - {}
           default: {}
-        example: {
-          "80/tcp": {},
-          "443/tcp": {}
-        }
+        example: { "80/tcp": {}, "443/tcp": {} }
       Tty:
         description: |
           Attach standard streams to a TTY, including `stdin` if it is not closed.
@@ -1574,36 +1568,21 @@ definitions:
       "AttachStdin": false
       "AttachStdout": false
       "AttachStderr": false
-      "ExposedPorts": {
-        "80/tcp": {},
-        "443/tcp": {}
-      }
+      "ExposedPorts": { "80/tcp": {}, "443/tcp": {} }
       "Tty": false
       "OpenStdin": false
       "StdinOnce": false
       "Env": ["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"]
       "Cmd": ["/bin/sh"]
-      "Healthcheck": {
-        "Test": ["string"],
-        "Interval": 0,
-        "Timeout": 0,
-        "Retries": 0,
-        "StartPeriod": 0,
-        "StartInterval": 0
-      }
+      "Healthcheck":
+        { "Test": ["string"], "Interval": 0, "Timeout": 0, "Retries": 0, "StartPeriod": 0, "StartInterval": 0 }
       "ArgsEscaped": true
       "Image": ""
-      "Volumes": {
-        "/app/data": {},
-        "/app/config": {}
-      }
+      "Volumes": { "/app/data": {}, "/app/config": {} }
       "WorkingDir": "/public/"
       "Entrypoint": []
       "OnBuild": []
-      "Labels": {
-        "com.example.some-label": "some-value",
-        "com.example.some-other-label": "some-other-value"
-      }
+      "Labels": { "com.example.some-label": "some-value", "com.example.some-other-label": "some-other-value" }
       "StopSignal": "SIGTERM"
       "Shell": ["/bin/sh", "-c"]
 
@@ -1883,11 +1862,12 @@ definitions:
         x-nullable: false
         additionalProperties:
           type: "string"
-        example: {
-          "MergedDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/merged",
-          "UpperDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/diff",
-          "WorkDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/work"
-        }
+        example:
+          {
+            "MergedDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/merged",
+            "UpperDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/diff",
+            "WorkDir": "/var/lib/docker/overlay2/ef749362d13333e65fc95c572eb525abbe0052e16e086cb64bc3b98ae9aa6d74/work"
+          }
 
   FilesystemChange:
     description: |
@@ -2606,13 +2586,11 @@ definitions:
     type: "object"
     properties:
       Name:
-        description:
-          ID of the peer-node in the Swarm cluster.
+        description: ID of the peer-node in the Swarm cluster.
         type: "string"
         example: "6869d7c1732b"
       IP:
-        description:
-          IP-address of the peer-node in the Swarm cluster.
+        description: IP-address of the peer-node in the Swarm cluster.
         type: "string"
         example: "10.133.77.91"
 
@@ -2679,7 +2657,7 @@ definitions:
         type: "string"
         description: |
           Description of the build-step that produced the build cache.
-        example: "mount / from exec /bin/sh -c echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/keep-cache"
+        example: 'mount / from exec /bin/sh -c echo ''Binary::apt::APT::Keep-Downloaded-Packages "true";'' > /etc/apt/apt.conf.d/keep-cache'
       InUse:
         type: "boolean"
         description: |
@@ -3010,8 +2988,7 @@ definitions:
         x-nullable: false
         example: "tiborvass/sample-volume-plugin"
       Enabled:
-        description:
-          True if the plugin is running. False if the plugin is not running,
+        description: True if the plugin is running. False if the plugin is not running,
           only installed.
         type: "boolean"
         x-nullable: false
@@ -3401,8 +3378,7 @@ definitions:
           certificates.
         type: "string"
       CertIssuerSubject:
-        description:
-          The base64-url-safe-encoded raw subject bytes of the issuer.
+        description: The base64-url-safe-encoded raw subject bytes of the issuer.
         type: "string"
       CertIssuerPublicKey:
         description: |
@@ -4771,29 +4747,24 @@ definitions:
         EndpointSpec:
           Mode: "vip"
           Ports:
-            -
-              Protocol: "tcp"
+            - Protocol: "tcp"
               TargetPort: 6379
               PublishedPort: 30001
       Endpoint:
         Spec:
           Mode: "vip"
           Ports:
-            -
-              Protocol: "tcp"
+            - Protocol: "tcp"
               TargetPort: 6379
               PublishedPort: 30001
         Ports:
-          -
-            Protocol: "tcp"
+          - Protocol: "tcp"
             TargetPort: 6379
             PublishedPort: 30001
         VirtualIPs:
-          -
-            NetworkID: "4qvuz4ko70xaltuqbt8956gd1"
+          - NetworkID: "4qvuz4ko70xaltuqbt8956gd1"
             Addr: "10.255.0.2/16"
-          -
-            NetworkID: "4qvuz4ko70xaltuqbt8956gd1"
+          - NetworkID: "4qvuz4ko70xaltuqbt8956gd1"
             Addr: "10.255.0.3/16"
 
   ImageDeleteResponseItem:
@@ -5650,7 +5621,6 @@ definitions:
           - "WARNING: bridge-nf-call-iptables is disabled"
           - "WARNING: bridge-nf-call-ip6tables is disabled"
 
-
   # PluginsInfo is a temp struct holding Plugins name
   # registered with docker daemon. It is used by Info struct
   PluginsInfo:
@@ -5688,7 +5658,6 @@ definitions:
         items:
           type: "string"
         example: ["awslogs", "fluentd", "gcplogs", "gelf", "journald", "json-file", "splunk", "syslog"]
-
 
   RegistryServiceConfig:
     description: |
@@ -5817,8 +5786,7 @@ definitions:
           - "https://[2001:db8:a0b:12f0::1]/"
 
   IndexInfo:
-    description:
-      IndexInfo contains information about a registry.
+    description: IndexInfo contains information about a registry.
     type: "object"
     x-nullable: true
     properties:
@@ -6034,7 +6002,20 @@ definitions:
       Type:
         description: "The type of object emitting the event"
         type: "string"
-        enum: ["builder", "config", "container", "daemon", "image", "network", "node", "plugin", "secret", "service", "volume"]
+        enum:
+          [
+            "builder",
+            "config",
+            "container",
+            "daemon",
+            "image",
+            "network",
+            "node",
+            "plugin",
+            "secret",
+            "service",
+            "volume"
+          ]
         example: "container"
       Action:
         description: "The type of event"
@@ -7103,8 +7084,7 @@ paths:
                 - "TIME"
                 - "CMD"
               Processes:
-                -
-                  - "root"
+                - - "root"
                   - "13642"
                   - "882"
                   - "0"
@@ -7112,8 +7092,7 @@ paths:
                   - "pts/0"
                   - "00:00:00"
                   - "/bin/bash"
-                -
-                  - "root"
+                - - "root"
                   - "13735"
                   - "13642"
                   - "0"
@@ -9396,8 +9375,7 @@ paths:
             example:
               LayersSize: 1092588
               Images:
-                -
-                  Id: "sha256:2b8fd9751c4c0f5dd266fcae00707e67a2545ef34f9a29354585f93dac906749"
+                - Id: "sha256:2b8fd9751c4c0f5dd266fcae00707e67a2545ef34f9a29354585f93dac906749"
                   ParentId: ""
                   RepoTags:
                     - "busybox:latest"
@@ -9410,8 +9388,7 @@ paths:
                   Labels: {}
                   Containers: 1
               Containers:
-                -
-                  Id: "e575172ed11dc01bfce087fb27bee502db149e1a0fad7c296ad300bbff178148"
+                - Id: "e575172ed11dc01bfce087fb27bee502db149e1a0fad7c296ad300bbff178148"
                   Names:
                     - "/top"
                   Image: "busybox"
@@ -9442,8 +9419,7 @@ paths:
                         MacAddress: "02:42:ac:12:00:02"
                   Mounts: []
               Volumes:
-                -
-                  Name: "my-volume"
+                - Name: "my-volume"
                   Driver: "local"
                   Mountpoint: "/var/lib/docker/volumes/my-volume/_data"
                   Labels: null
@@ -9453,8 +9429,7 @@ paths:
                     Size: 10920104
                     RefCount: 2
               BuildCache:
-                -
-                  ID: "hw53o5aio51xtltp5xjp8v7fx"
+                - ID: "hw53o5aio51xtltp5xjp8v7fx"
                   Parents: []
                   Type: "regular"
                   Description: "pulled from docker.io/library/debian@sha256:234cb88d3020898631af0ccbbcca9a66ae7306ecd30c9720690858c1b007d2a0"
@@ -9464,11 +9439,10 @@ paths:
                   CreatedAt: "2021-06-28T13:31:01.474619385Z"
                   LastUsedAt: "2021-07-07T22:02:32.738075951Z"
                   UsageCount: 26
-                -
-                  ID: "ndlpt0hhvkqcdfkputsk4cq9c"
+                - ID: "ndlpt0hhvkqcdfkputsk4cq9c"
                   Parents: ["ndlpt0hhvkqcdfkputsk4cq9c"]
                   Type: "regular"
-                  Description: "mount / from exec /bin/sh -c echo 'Binary::apt::APT::Keep-Downloaded-Packages \"true\";' > /etc/apt/apt.conf.d/keep-cache"
+                  Description: 'mount / from exec /bin/sh -c echo ''Binary::apt::APT::Keep-Downloaded-Packages "true";'' > /etc/apt/apt.conf.d/keep-cache'
                   InUse: false
                   Shared: true
                   Size: 51
@@ -10121,8 +10095,7 @@ paths:
                 IPAM:
                   Driver: "default"
                   Config:
-                    -
-                      Subnet: "172.17.0.0/16"
+                    - Subnet: "172.17.0.0/16"
                 Options:
                   com.docker.network.bridge.default_bridge: "true"
                   com.docker.network.bridge.enable_icc: "true"
@@ -11463,8 +11436,7 @@ paths:
                     ContainerSpec:
                       Image: "nginx:alpine"
                       Mounts:
-                        -
-                          ReadOnly: true
+                        - ReadOnly: true
                           Source: "web-data"
                           Target: "/usr/share/nginx/html"
                           Type: "volume"
@@ -11479,8 +11451,7 @@ paths:
                         Search: ["example.org"]
                         Options: ["timeout:3"]
                       Secrets:
-                        -
-                          File:
+                        - File:
                             Name: "www.example.org.key"
                             UID: "33"
                             GID: "33"
@@ -11518,8 +11489,7 @@ paths:
                     MaxFailureRatio: 0.15
                   EndpointSpec:
                     Ports:
-                      -
-                        Protocol: "tcp"
+                      - Protocol: "tcp"
                         PublishedPort: 8080
                         TargetPort: 80
                   Labels:
