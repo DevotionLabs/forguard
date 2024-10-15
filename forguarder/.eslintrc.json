@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "prettier"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+        "es2022": true,
+        "node": true
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+    },
+    "ignorePatterns": ["dist", "coverage", "node_modules"]
+}
