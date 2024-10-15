@@ -2,6 +2,7 @@ import http from "http";
 import request from "supertest";
 import { RoutesMap } from "../../../src/server/routes/types";
 import { Server } from "../../../src/server/index";
+import { ApiConfig } from "../../../src/config/types";
 
 describe("Server class", () => {
 	const routesMap: RoutesMap = {
@@ -15,8 +16,13 @@ describe("Server class", () => {
 			}
 		]
 	};
-	const listenPort = 3000;
-	const server = new Server(listenPort, routesMap);
+
+  const apiConfig: ApiConfig = {
+    apiPort: 3001,
+    corsOrigin: "http://localhost:3000"
+  };
+
+	const server = new Server(apiConfig, routesMap);
 
 	it("should set up the routes and respond to /test/route", async () => {
 		const response = await request(server["api"]).get("/test/route");
@@ -30,7 +36,7 @@ describe("Server class", () => {
 
 		server.start();
 
-		expect(listenSpy).toHaveBeenCalledWith(listenPort, expect.any(Function));
+		expect(listenSpy).toHaveBeenCalledWith(apiConfig.apiPort, expect.any(Function));
 
 		listenSpy.mockRestore();
 	});
