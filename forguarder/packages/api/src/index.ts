@@ -1,6 +1,5 @@
+import { apiConfig } from "./config/apiConfig.js";
 import { routesMap, Server } from "./server/index.js";
 
-const port = process.env.FORGUARD_API_PORT || 3000;
-
-const server = new Server(Number(port), routesMap);
+const server = new Server(apiConfig, routesMap);
 server.start();
