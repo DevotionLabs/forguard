@@ -12,9 +12,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    env:
-      FORGUARD_API_PORT: 3030
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,16 +30,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run build
-        run: npm run build
-
-      - name: Run tests
-        run: npm run test
-
-      - name: Start API server (background)
-        run: npm run start --workspace api &
-        env:
-          FORGUARD_API_PORT: ${{ env.FORGUARD_API_PORT }}
-
-      - name: Wait for the server to be UP
-        run: npx --yes wait-on http://localhost:${{ env.FORGUARD_API_PORT }}/healthcheck --timeout 1m
+      - name: Run lint
+        run: npm run lint
