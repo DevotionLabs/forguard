@@ -1,1 +1,1 @@
-export { ComposeEditor } from "./ComposeEditor.js";
+export { ComposeNetworkEditor } from "./ComposeNetworkEditor.js";

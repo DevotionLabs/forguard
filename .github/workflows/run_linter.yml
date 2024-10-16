@@ -20,7 +20,7 @@ jobs:
             forguarder
 
       - name: Move forguarder files to root
-        run: mv forguarder/{*,.*} . && rm -rf forguarder
+        run: shopt -s dotglob nullglob && mv -f forguarder/* . && rm -rf forguarder
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

@@ -1,12 +1,12 @@
 import fs from "fs";
 import { dump } from "js-yaml";
-import { ComposeEditor } from "../../../../../../src/services/docker-compose/index";
-import { Logger } from "../../../../../../src/logger/index";
+import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeNetworkEditor";
+import { Logger } from "../../../../../src/logger/Logger";
 
-// Mock the fs and yaml modules
 jest.mock("fs");
-jest.mock("../../../../../../src/logger/Logger");
+jest.mock("../../../../../src/logger/Logger");
 
+// ComposeNetworkEditor is used in this test because ComposeEditor class is abstract
 describe("ComposeEditor", () => {
 	const mockPath = "./test-docker-compose.yml";
 	const mockComposeData = { services: { app: { image: "my-app" } } };
@@ -20,7 +20,7 @@ describe("ComposeEditor", () => {
 	it("should load the compose file correctly", () => {
 		spiedRead.mockReturnValue(dump(mockComposeData));
 
-		const editor = new ComposeEditor(mockPath);
+		const editor = new ComposeNetworkEditor(mockPath);
 
 		expect(editor["compose"]).toEqual(mockComposeData);
 	});
@@ -30,14 +30,14 @@ describe("ComposeEditor", () => {
 			throw new Error("File not found");
 		});
 
-		expect(() => new ComposeEditor(mockPath)).toThrow("File not found");
+		expect(() => new ComposeNetworkEditor(mockPath)).toThrow("File not found");
 		expect(Logger.error).toHaveBeenCalledWith(expect.stringContaining("Error loading the compose file:"));
 	});
 
 	it("should save the compose file correctly", () => {
 		spiedWrite.mockImplementation(() => {});
 
-		const editor = new ComposeEditor(mockPath);
+		const editor = new ComposeNetworkEditor(mockPath);
 		editor["compose"] = mockComposeData;
 		editor["saveToFile"].call(editor);
 
@@ -51,7 +51,7 @@ describe("ComposeEditor", () => {
 			throw new Error("Write error");
 		});
 
-		const editor = new ComposeEditor(mockPath);
+		const editor = new ComposeNetworkEditor(mockPath);
 
 		expect(() => editor["saveToFile"].call(editor)).toThrow("Write error");
 		expect(Logger.error).toHaveBeenCalledWith(expect.stringContaining("Error saving the compose file:"));

@@ -3,9 +3,9 @@ import yaml from "js-yaml";
 import { Logger } from "../../../logger/index.js";
 import { ComposeSpecification } from "./generated/types.js";
 
-export class ComposeEditor {
-	private path: string;
-	private compose: ComposeSpecification;
+export abstract class ComposeEditor {
+	protected path: string;
+	protected compose: ComposeSpecification;
 
 	constructor(path: string) {
 		this.path = path;
