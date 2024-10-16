@@ -17,10 +17,10 @@ describe("Server class", () => {
 		]
 	};
 
-  const apiConfig: ApiConfig = {
-    apiPort: 3001,
-    corsOrigin: "http://localhost:3000"
-  };
+	const apiConfig: ApiConfig = {
+		apiPort: 3001,
+		corsOrigin: "http://localhost:3000"
+	};
 
 	const server = new Server(apiConfig, routesMap);
 
