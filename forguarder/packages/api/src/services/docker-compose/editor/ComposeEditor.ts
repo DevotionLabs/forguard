@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "fs";
 import yaml from "js-yaml";
-import { Logger } from "../../../../logger/index.js";
+import { Logger } from "../../../logger/index.js";
 import { ComposeSpecification } from "./generated/types.js";
 
 export class ComposeEditor {

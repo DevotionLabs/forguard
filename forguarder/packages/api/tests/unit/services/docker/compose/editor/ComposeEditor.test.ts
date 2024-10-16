@@ -1,6 +1,6 @@
 import fs from "fs";
 import { dump } from "js-yaml";
-import { ComposeEditor } from "../../../../../../src/services/docker/compose/index";
+import { ComposeEditor } from "../../../../../../src/services/docker-compose/index";
 import { Logger } from "../../../../../../src/logger/index";
 
 // Mock the fs and yaml modules
