@@ -3,14 +3,14 @@ module.exports = {
 	testEnvironment: "node",
 	rootDir: "./",
 	testMatch: ["<rootDir>/tests/**/*.test.ts"],
-	moduleFileExtensions: ["ts", "js", "json"], // Allow imports from TS, JS, and JSON files
+	moduleFileExtensions: ["ts", "js", "json"],
 	collectCoverage: true,
 	coverageDirectory: "<rootDir>/coverage",
 	coverageReporters: ["text", "lcov"],
 	collectCoverageFrom: [
 		"<rootDir>/src/**/*.ts",
-		"!<rootDir>/src/**/*.d.ts", // Exclude TypeScript declaration files
-		"!<rootDir>/src/services/docker/**/generated/*" // Exclude auto-generated files in docker folder
+		"!<rootDir>/src/**/*.d.ts",
+		"!<rootDir>/src/services/docker-*/**/generated/*"
 	],
 	moduleNameMapper: {
 		"^\\.(.*)\\.js$": ".$1" // Map .js imports to "no-extension" imports
