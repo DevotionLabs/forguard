@@ -14,6 +14,7 @@
   "author": "Diego (DevotionLabs)",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
