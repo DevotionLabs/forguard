@@ -23,7 +23,7 @@ jobs:
             forguarder
 
       - name: Move forguarder files to root
-        run: rsync --remove-source-files forguarder/ .
+        run: mv -f forguarder/{.,}* . && rm -rf forguarder
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
