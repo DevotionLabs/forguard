@@ -1,11 +1,11 @@
 import fs from "fs";
-import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/editor/index";
+import { ComposeRootNetworkEditor } from "../../../../../src/services/docker-compose/editor/index";
 import yaml from "js-yaml";
 
 jest.mock("fs");
 jest.mock("js-yaml");
 
-describe("ComposeNetworkEditor", () => {
+describe("ComposeRootNetworkEditor", () => {
 	const existingNetworkName = "existing-network";
 	const newNetworkName = "new-network";
 
@@ -34,7 +34,7 @@ describe("ComposeNetworkEditor", () => {
 	});
 
 	it("should add an external network to the root networks", () => {
-		const editor = new ComposeNetworkEditor(mockComposeFilePath);
+		const editor = new ComposeRootNetworkEditor(mockComposeFilePath);
 		editor.addExternalNetworkToRoot(newNetworkName);
 		const networks = editor["compose"].networks;
 
@@ -45,7 +45,7 @@ describe("ComposeNetworkEditor", () => {
 	});
 
 	it("should log errors when failing to save the compose file", () => {
-		const editor = new ComposeNetworkEditor(mockComposeFilePath);
+		const editor = new ComposeRootNetworkEditor(mockComposeFilePath);
 		const spiedWrite = jest.spyOn(fs, "writeFileSync");
 		spiedWrite.mockImplementation(() => {
 			throw new Error("Write failed");
@@ -55,7 +55,7 @@ describe("ComposeNetworkEditor", () => {
 	});
 
 	it("should remove a network from the root networks", () => {
-		const editor = new ComposeNetworkEditor(mockComposeFilePath);
+		const editor = new ComposeRootNetworkEditor(mockComposeFilePath);
 		editor.removeNetworkFromRoot(existingNetworkName);
 
 		const networks = editor["compose"].networks;
@@ -67,10 +67,10 @@ describe("ComposeNetworkEditor", () => {
 
 	describe("Save updated networks to file", () => {
 		const testNetworkUpdateOnFile = (
-			action: (_editor: ComposeNetworkEditor) => void,
+			action: (_editor: ComposeRootNetworkEditor) => void,
 			expectedResult: (_savedYamlContent: any) => void
 		) => {
-			const editor = new ComposeNetworkEditor(mockComposeFilePath);
+			const editor = new ComposeRootNetworkEditor(mockComposeFilePath);
 
 			action(editor);
 

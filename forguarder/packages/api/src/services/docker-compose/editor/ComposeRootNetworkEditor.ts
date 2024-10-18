@@ -2,7 +2,7 @@ import { Logger } from "../../../logger/index";
 import { ComposeEditor } from "./ComposeEditor";
 import { PropertiesNetworks } from "./generated/types";
 
-export class ComposeNetworkEditor extends ComposeEditor {
+export class ComposeRootNetworkEditor extends ComposeEditor {
 	constructor(path: string) {
 		super(path);
 	}
