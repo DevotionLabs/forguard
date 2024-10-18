@@ -5,7 +5,7 @@ import { ComposeServiceWithNetworks, ServiceNetwork } from "./types.js";
 export class ComposeServiceNetworkEditor extends ComposeEditor {
 	private service: ComposeServiceWithNetworks;
 
-	constructor(path: string, serviceName: string) {
+	constructor({ path, serviceName }: { path: string; serviceName: string }) {
 		super(path);
 		this.service = this.getServiceWithNetworksFromCompose(serviceName);
 	}

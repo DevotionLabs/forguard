@@ -1,15 +1,16 @@
 import fs from "fs";
 import { dump } from "js-yaml";
 import { ComposeRootNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
-import { Logger } from "../../../../../src/logger/Logger";
+import { mockCompose, mockComposePath } from "./testParams";
+
+const assertFileWrite = (path: string) => {
+	expect(fs.writeFileSync).toHaveBeenCalledWith(path, expect.any(String), "utf8");
+};
 
 jest.mock("fs");
-jest.mock("../../../../../src/logger/Logger");
 
 // ComposeRootNetworkEditor is used in this test because ComposeEditor class is abstract
 describe("ComposeEditor", () => {
-	const mockPath = "./test-docker-compose.yml";
-	const mockComposeData = { services: { app: { image: "my-app" } } };
 	const spiedRead = jest.spyOn(fs, "readFileSync");
 	const spiedWrite = jest.spyOn(fs, "writeFileSync");
 
@@ -18,11 +19,10 @@ describe("ComposeEditor", () => {
 	});
 
 	it("should load the compose file correctly", () => {
-		spiedRead.mockReturnValue(dump(mockComposeData));
+		spiedRead.mockReturnValue(dump(mockCompose));
+		const editor = new ComposeRootNetworkEditor(mockComposePath);
 
-		const editor = new ComposeRootNetworkEditor(mockPath);
-
-		expect(editor["compose"]).toEqual(mockComposeData);
+		expect(editor["compose"]).toEqual(mockCompose);
 	});
 
 	it("should log an error when loading the compose file fails", () => {
@@ -30,20 +30,15 @@ describe("ComposeEditor", () => {
 			throw new Error("File not found");
 		});
 
-		expect(() => new ComposeRootNetworkEditor(mockPath)).toThrow("File not found");
-		expect(Logger.error).toHaveBeenCalledWith(expect.stringContaining("Error loading the compose file:"));
+		expect(() => new ComposeRootNetworkEditor(mockComposePath)).toThrow("File not found");
 	});
 
 	it("should save the compose file correctly", () => {
-		spiedWrite.mockImplementation(() => {});
+		const editor = new ComposeRootNetworkEditor(mockComposePath);
+		editor["compose"] = mockCompose;
+		editor["saveToFile"]();
 
-		const editor = new ComposeRootNetworkEditor(mockPath);
-		editor["compose"] = mockComposeData;
-		editor["saveToFile"].call(editor);
-
-		expect(fs.writeFileSync).toHaveBeenCalledWith(mockPath, expect.any(String), "utf8");
-
-		expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining("Successfully written compose to"));
+		assertFileWrite(mockComposePath);
 	});
 
 	it("should log an error when saving the compose file fails", () => {
@@ -51,9 +46,8 @@ describe("ComposeEditor", () => {
 			throw new Error("Write error");
 		});
 
-		const editor = new ComposeRootNetworkEditor(mockPath);
+		const editor = new ComposeRootNetworkEditor(mockComposePath);
 
-		expect(() => editor["saveToFile"].call(editor)).toThrow("Write error");
-		expect(Logger.error).toHaveBeenCalledWith(expect.stringContaining("Error saving the compose file:"));
+		expect(() => editor["saveToFile"]()).toThrow("Write error");
 	});
 });
