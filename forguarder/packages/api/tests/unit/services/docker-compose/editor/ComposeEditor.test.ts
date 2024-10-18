@@ -1,6 +1,6 @@
 import fs from "fs";
 import { dump } from "js-yaml";
-import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeNetworkEditor";
+import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
 import { Logger } from "../../../../../src/logger/Logger";
 
 jest.mock("fs");

@@ -44,18 +44,6 @@ describe("ComposeNetworkEditor", () => {
 		expect(networks[newNetworkName]).toEqual({ external: true });
 	});
 
-	it("should save the updated networks to the compose file after addition", () => {
-		const editor = new ComposeNetworkEditor(mockComposeFilePath);
-		editor.addExternalNetworkToRoot(newNetworkName);
-
-		expect(fs.writeFileSync).toHaveBeenCalled();
-
-		const savedYamlContent = getFirstArgFromFirstCall(spiedDump);
-
-		expect(savedYamlContent.networks).toHaveProperty(newNetworkName);
-		expect(savedYamlContent.networks[newNetworkName]).toEqual({ external: true });
-	});
-
 	it("should log errors when failing to save the compose file", () => {
 		const editor = new ComposeNetworkEditor(mockComposeFilePath);
 		const spiedWrite = jest.spyOn(fs, "writeFileSync");
@@ -77,12 +65,33 @@ describe("ComposeNetworkEditor", () => {
 		expect(networks).not.toHaveProperty(existingNetworkName);
 	});
 
-	it("should save the updated networks to the compose file after deletion", () => {
-		const editor = new ComposeNetworkEditor(mockComposeFilePath);
-		editor.removeNetworkFromRoot(existingNetworkName);
+	describe("Save updated networks to file", () => {
+		const testNetworkUpdateOnFile = (
+			action: (_editor: ComposeNetworkEditor) => void,
+			expectedResult: (_savedYamlContent: any) => void
+		) => {
+			const editor = new ComposeNetworkEditor(mockComposeFilePath);
 
-		expect(fs.writeFileSync).toHaveBeenCalled();
-		const savedYamlContent = getFirstArgFromFirstCall(spiedDump);
-		expect(savedYamlContent.networks).not.toHaveProperty(existingNetworkName);
+			action(editor);
+
+			const savedYamlContent = getFirstArgFromFirstCall(spiedDump);
+
+			expect(fs.writeFileSync).toHaveBeenCalled();
+			expectedResult(savedYamlContent);
+		};
+
+		it("should save the updated networks to the compose file after addition", () => {
+			testNetworkUpdateOnFile(
+				(editor) => editor.addExternalNetworkToRoot(newNetworkName),
+				(savedYamlContent) => expect(savedYamlContent.networks[newNetworkName]).toEqual({ external: true })
+			);
+		});
+
+		it("should save the updated networks to the compose file after deletion", () => {
+			testNetworkUpdateOnFile(
+				(editor) => editor.removeNetworkFromRoot(existingNetworkName),
+				(savedYamlContent) => expect(savedYamlContent.networks).not.toHaveProperty(existingNetworkName)
+			);
+		});
 	});
 });
