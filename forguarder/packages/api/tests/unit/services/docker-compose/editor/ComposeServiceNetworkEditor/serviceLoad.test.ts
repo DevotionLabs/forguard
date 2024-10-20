@@ -1,17 +1,12 @@
-import fs from "fs";
 import yaml from "js-yaml";
 import { ComposeServiceNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor";
 import { ServiceNetworkParser } from "../../../../../../src/services/docker-compose/editor/ServiceNetworkParser";
 import { mockCompose, mockComposePath, mockServiceName } from "../testParams";
+import { mockComposeFileIO } from "../mockComposeFileIO";
 
 describe("Load the service", () => {
-	const spiedRead = jest.spyOn(fs, "readFileSync");
-	const spiedLoad = jest.spyOn(yaml, "load");
-
 	beforeEach(() => {
-		jest.resetAllMocks();
-		spiedLoad.mockReturnValue(mockCompose);
-		spiedRead.mockReturnValue(JSON.stringify(mockCompose));
+		mockComposeFileIO(mockCompose);
 	});
 
 	it("should load the service with normalized networks from the compose file", () => {
@@ -23,6 +18,7 @@ describe("Load the service", () => {
 	});
 
 	it("should throw an error if there are no services defined in the compose", () => {
+		const spiedLoad = jest.spyOn(yaml, "load");
 		spiedLoad.mockReturnValue({});
 		expect(
 			() => new ComposeServiceNetworkEditor({ path: mockComposePath, serviceName: "nonexistent-service" })

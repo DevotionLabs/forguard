@@ -3,7 +3,7 @@
 	"ignorePatterns": ["**/generated/**"],
 	"overrides": [
 		{
-			"files": ["**/*.test.ts"],
+			"files": ["tests/**/*.ts"],
 			"env": {
 				"jest": true
 			}

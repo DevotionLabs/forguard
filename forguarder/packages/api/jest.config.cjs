@@ -14,5 +14,6 @@ module.exports = {
 	],
 	moduleNameMapper: {
 		"^\\.(.*)\\.js$": ".$1" // Map .js imports to "no-extension" imports
-	}
+	},
+	clearMocks: true
 };

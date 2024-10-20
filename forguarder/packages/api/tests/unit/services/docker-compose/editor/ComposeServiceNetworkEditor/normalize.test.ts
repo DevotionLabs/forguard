@@ -1,6 +1,6 @@
 import { ComposeServiceNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor";
 import { RawServiceNetworks, ServiceNetworks } from "../../../../../../src/services/docker-compose/editor/types";
-import { generateMockEditor } from "./generateMockEditor";
+import { generateServiceNetworkMockEditor } from "./generateServiceNetworkMockEditor";
 
 describe("Normalize networks", () => {
 	const testNetworkNormalization = ({
@@ -10,7 +10,7 @@ describe("Normalize networks", () => {
 		rawNetworks: RawServiceNetworks;
 		normalizedNetworks: ServiceNetworks;
 	}) => {
-		const editor = generateMockEditor(rawNetworks);
+		const editor = generateServiceNetworkMockEditor(rawNetworks);
 
 		assertExpectedNetworks(editor, normalizedNetworks);
 	};

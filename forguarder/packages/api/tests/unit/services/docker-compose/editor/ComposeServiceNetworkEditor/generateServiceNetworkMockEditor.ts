@@ -1,23 +1,15 @@
-import fs from "fs";
-import yaml from "js-yaml";
 import { ComposeServiceNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor";
 import { RawServiceNetworks } from "../../../../../../src/services/docker-compose/editor/types";
 import { mockCompose, mockComposePath, mockServiceName } from "../testParams";
+import { mockComposeFileIO } from "../mockComposeFileIO";
 
-export const generateMockEditor = (initialNetworks: RawServiceNetworks) => {
-	const spiedRead = jest.spyOn(fs, "readFileSync");
-	const spiedWrite = jest.spyOn(fs, "writeFileSync");
-	const spiedLoad = jest.spyOn(yaml, "load");
-
-	const initialMock = generateInitialMock(initialNetworks);
-	spiedRead.mockReturnValue(JSON.stringify(initialMock));
-	spiedLoad.mockReturnValue(initialMock);
-	spiedWrite.mockImplementation(() => {});
-
+export const generateServiceNetworkMockEditor = (initialNetworks: RawServiceNetworks) => {
+	const initialCompose = generateinitialCompose(initialNetworks);
+	mockComposeFileIO(initialCompose);
 	return new ComposeServiceNetworkEditor({ path: mockComposePath, serviceName: mockServiceName });
 };
 
-const generateInitialMock = (initialNetworks: RawServiceNetworks) => {
+const generateinitialCompose = (initialNetworks: RawServiceNetworks) => {
 	return {
 		...mockCompose,
 		services: {

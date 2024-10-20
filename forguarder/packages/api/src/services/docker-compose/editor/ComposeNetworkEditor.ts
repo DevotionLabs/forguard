@@ -28,6 +28,7 @@ export class ComposeNetworkEditor {
 		this.serviceEditor.addNetworkToService(serviceNetwork);
 	}
 
+	// TODO: Handle errors
 	public removeNetwork(networkName: string) {
 		this.serviceEditor.removeNetworkFromService(networkName);
 		this.rootEditor.removeNetworkFromRoot(networkName);

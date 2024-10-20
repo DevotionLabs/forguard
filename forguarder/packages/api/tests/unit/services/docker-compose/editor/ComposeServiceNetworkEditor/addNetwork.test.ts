@@ -4,7 +4,7 @@ import {
 	NetworkToAdd,
 	ServiceNetworks
 } from "../../../../../../src/services/docker-compose/editor/types";
-import { generateMockEditor } from "./generateMockEditor";
+import { generateServiceNetworkMockEditor } from "./generateServiceNetworkMockEditor";
 
 describe("Add network to service", () => {
 	const newNetwork = {
@@ -24,7 +24,7 @@ describe("Add network to service", () => {
 		newNetwork: NetworkToAdd;
 		expectedNetworks: ServiceNetworks;
 	}) => {
-		const editor = generateMockEditor(initialNetworks);
+		const editor = generateServiceNetworkMockEditor(initialNetworks);
 
 		editor.addNetworkToService(newNetwork);
 
