@@ -1,38 +1,40 @@
-import { Logger } from "../../../logger/index";
-import { ComposeEditor } from "./ComposeEditor";
-import { PropertiesNetworks } from "./generated/types";
+import { ComposeRootNetworkEditor } from "./ComposeRootNetworkEditor";
+import { ComposeServiceNetworkEditor } from "./ComposeServiceNetworkEditor";
 
-export class ComposeNetworkEditor extends ComposeEditor {
-	constructor(path: string) {
-		super(path);
+export class ComposeNetworkEditor {
+	private rootEditor: ComposeRootNetworkEditor;
+	private serviceEditor: ComposeServiceNetworkEditor;
+
+	constructor({ path, serviceName }: { path: string; serviceName: string }) {
+		this.rootEditor = new ComposeRootNetworkEditor(path);
+		this.serviceEditor = new ComposeServiceNetworkEditor({
+			path,
+			serviceName
+		});
 	}
 
-	public addExternalNetworkToRoot(networkName: string): void {
-		const rootNetworks = this.getRootNetworks();
+	public addNetwork(networkName: string, aliases: string[]) {
+		this.validateAliases(aliases);
 
-		rootNetworks[networkName] = {
-			external: true
+		const serviceNetwork = {
+			name: networkName,
+			props: {
+				aliases
+			}
 		};
 
-		this.writeRootNetworksToFile(rootNetworks);
-		Logger.info(`Successfully added network ${networkName} to compose root`);
+		// TODO: What if only the second step fails?
+		this.rootEditor.addExternalNetworkToRoot(networkName);
+		this.serviceEditor.addNetworkToService(serviceNetwork);
 	}
 
-	public removeNetworkFromRoot(networkName: string): void {
-		const rootNetworks = this.getRootNetworks();
-
-		delete rootNetworks[networkName];
-		this.writeRootNetworksToFile(rootNetworks);
-		Logger.info(`Successfully removed network ${networkName} from compose root`);
+	// TODO: Handle errors
+	public removeNetwork(networkName: string) {
+		this.serviceEditor.removeNetworkFromService(networkName);
+		this.rootEditor.removeNetworkFromRoot(networkName);
 	}
 
-	private getRootNetworks(): PropertiesNetworks {
-		Logger.info(JSON.stringify(this.compose));
-		return this.compose.networks || {};
-	}
-
-	private writeRootNetworksToFile(networks: PropertiesNetworks): void {
-		this.compose.networks = networks;
-		this.saveToFile();
+	private validateAliases(aliases: string[]) {
+		if (aliases.length === 0) throw new Error(`At least 1 alias must be set`);
 	}
 }
