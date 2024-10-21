@@ -1,28 +1,28 @@
 {
-  "name": "forguarder",
-  "version": "0.1.0",
-  "description": "ForGuard monorepo",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run test --workspaces",
-    "build": "npm run build --workspaces",
-    "lint": "npm run lint --workspaces",
-    "lint:fix": "npm run lint:fix --workspaces",
-    "format": "npm run format --workspaces",
-    "clean": "rimraf node_modules packages/*/node_modules packages/*/dist packages/*/coverage"
-  },
-  "author": "Diego (DevotionLabs)",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "@types/dotenv": "^6.1.1",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.5.3"
-  },
-  "workspaces": [
-    "./packages/*"
-  ]
+	"name": "forguarder",
+	"version": "0.1.0",
+	"description": "ForGuard monorepo",
+	"main": "index.js",
+	"scripts": {
+		"test": "npm run test --workspaces",
+		"build": "npm run build --workspaces",
+		"lint": "npm run lint --workspaces",
+		"lint:fix": "npm run lint:fix --workspaces",
+		"format": "npm run format --workspaces",
+		"clean": "rimraf node_modules packages/*/node_modules packages/*/dist packages/*/coverage"
+	},
+	"author": "Diego (DevotionLabs)",
+	"license": "GPL-3.0",
+	"devDependencies": {
+		"@types/dotenv": "^6.1.1",
+		"eslint": "^8.57.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.2.1",
+		"prettier": "^3.3.3",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.5.3"
+	},
+	"workspaces": [
+		"./packages/*"
+	]
 }

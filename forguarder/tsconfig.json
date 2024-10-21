@@ -1,20 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ES2023",
-    "module": "ES2022",
+	"compilerOptions": {
+		"target": "ES2023",
+		"module": "ES2022",
 
-    "pretty": true,
-    "strict": true,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "useUnknownInCatchVariables": false,
+		"pretty": true,
+		"strict": true,
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noImplicitReturns": true,
+		"useUnknownInCatchVariables": false,
 
-    "esModuleInterop": true,
-    "declaration": true,
-    "declarationMap": true,
-    "incremental": true,
-    "preserveWatchOutput": true
-  }
+		"esModuleInterop": true,
+		"declaration": true,
+		"declarationMap": true,
+		"incremental": true,
+		"preserveWatchOutput": true
+	}
 }

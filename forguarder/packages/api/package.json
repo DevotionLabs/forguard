@@ -2,8 +2,11 @@
 	"name": "api",
 	"version": "0.1.0",
 	"description": "ForGuard HTTP API",
-	"main": "index.js",
 	"type": "module",
+	"exports": "./index.js",
+	"engines": {
+		"node": ">=18"
+	},
 	"scripts": {
 		"build": "tsc --project tsconfig.prod.json",
 		"test": "jest",

@@ -10,14 +10,14 @@ export abstract class ComposeEditor {
 	constructor(path: string) {
 		this.path = path;
 		this.compose = this.loadFromFile();
+		Logger.info(`Succesfully loaded compose file from path ${this.path}`);
 	}
 
 	private loadFromFile(): ComposeSpecification {
 		try {
 			return this.parseComposeFile();
 		} catch (error) {
-			Logger.error(`Error loading the compose file: ${error}`);
-			throw error;
+			throw new Error(`Could not load the compose file: ${error}`);
 		}
 	}
 
@@ -30,8 +30,7 @@ export abstract class ComposeEditor {
 		try {
 			this.writeComposeToFile();
 		} catch (error) {
-			Logger.error(`Error saving the compose file: ${error}`);
-			throw error;
+			throw new Error(`Could not save the compose file: ${error}`);
 		}
 	}
 
