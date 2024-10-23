@@ -8,8 +8,16 @@ export abstract class ComposeEditor {
 
 	constructor(path: string) {
 		this.path = path;
-		this.readCompose(); // To validate compose path
+		this.validateComposePath();
 		Logger.info(`Succesfully loaded compose file from path ${this.path}`);
+	}
+
+	private validateComposePath(): void {
+		try {
+			this.readCompose();
+		} catch (error) {
+			throw new Error(`Could not create a ComposeEditor for path ${this.path}: ${error}`);
+		}
 	}
 
 	protected readCompose(): ComposeSpecification {

@@ -1,21 +1,18 @@
 import fs from "fs";
-import { ComposeRootNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
-import { mockCompose, mockComposePath } from "../testParams";
-import { assertFileWrite } from "./assertFileWrite";
-import { mockComposeFileIO } from "../mockComposeFileIO";
+import yaml from "js-yaml";
+import { ComposeRootNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
+import { mockCompose, mockComposePath } from "./testParams";
 
 jest.mock("fs");
 
 // ComposeRootNetworkEditor is used in this test because ComposeEditor class is abstract
 describe("ComposeEditor", () => {
 	beforeEach(() => {
-		mockComposeFileIO(mockCompose);
-	});
+		const spiedRead = jest.spyOn(fs, "readFileSync");
+		const spiedLoad = jest.spyOn(yaml, "load");
 
-	it("should load the compose file correctly", () => {
-		const editor = new ComposeRootNetworkEditor(mockComposePath);
-
-		expect(editor["compose"]).toEqual(mockCompose);
+		spiedRead.mockReturnValue(JSON.stringify(mockCompose));
+		spiedLoad.mockReturnValue(mockCompose);
 	});
 
 	it("should log an error when loading the compose file fails", () => {
@@ -29,13 +26,12 @@ describe("ComposeEditor", () => {
 
 	it("should save the compose file correctly", () => {
 		const editor = new ComposeRootNetworkEditor(mockComposePath);
-		editor["compose"] = mockCompose;
-		editor["saveToFile"]();
+		editor["saveToFile"](mockCompose);
 
-		assertFileWrite(mockComposePath);
+		expect(fs.writeFileSync).toHaveBeenCalledWith(mockComposePath, editor["composeToString"](mockCompose));
 	});
 
-	it("should log an error when saving the compose file fails", () => {
+	it("should throw an error when saving the compose file fails", () => {
 		const spiedWrite = jest.spyOn(fs, "writeFileSync");
 		spiedWrite.mockImplementation(() => {
 			throw new Error("Write error");
@@ -43,6 +39,6 @@ describe("ComposeEditor", () => {
 
 		const editor = new ComposeRootNetworkEditor(mockComposePath);
 
-		expect(() => editor["saveToFile"]()).toThrow("Write error");
+		expect(() => editor["saveToFile"](mockCompose)).toThrow("Write error");
 	});
 });
