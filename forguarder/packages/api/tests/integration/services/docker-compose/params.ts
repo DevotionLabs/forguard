@@ -11,4 +11,4 @@ export const testCompose: ComposeSpecification = {
 	}
 };
 
-export const testComposePath = path.resolve(__dirname, "./files/docker-compose.yml");
+export const testComposePath = path.resolve(__dirname, "./docker-compose.yml");

@@ -6,14 +6,15 @@ import { existingNetworkName, mockCompose, newNetworkName } from "./testParams";
 describe("ComposeRootNetworkEditor", () => {
 	let spiedSaveToFile: jest.SpyInstance;
 	let freshMockCompose: ComposeSpecification;
-
-	const editor = new ComposeRootNetworkEditor(testComposePath);
+	let editor: ComposeRootNetworkEditor;
 
 	beforeEach(() => {
 		freshMockCompose = structuredClone(mockCompose);
 
 		const spiedReadCompose = jest.spyOn(ComposeRootNetworkEditor.prototype as any, "readCompose");
 		spiedReadCompose.mockReturnValue(freshMockCompose);
+
+		editor = new ComposeRootNetworkEditor(testComposePath);
 
 		spiedSaveToFile = jest.spyOn(ComposeRootNetworkEditor.prototype as any, "saveToFile");
 		spiedSaveToFile.mockImplementation(jest.fn());

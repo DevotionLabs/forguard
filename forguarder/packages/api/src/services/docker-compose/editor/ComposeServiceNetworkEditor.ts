@@ -1,5 +1,4 @@
 import { ComposeEditor } from "./ComposeEditor.js";
-import { ComposeSpecification } from "./generated/types.js";
 import { ServiceNetworkParser } from "./ServiceNetworkParser.js";
 import { ServiceWithNetworks, ServiceNetwork } from "./types.js";
 

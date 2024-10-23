@@ -30,10 +30,13 @@ const mockReadCompose = (compose: ComposeSpecification) => {
 	spiedReadCompose.mockReturnValue(compose);
 };
 
+const generateMockEditor = (compose: ComposeSpecification) => {
+	mockReadCompose(compose);
+	return new ComposeServiceNetworkEditor({ path: testComposePath, serviceName: mockServiceName });
+};
+
 describe("ComposeServiceNetworkEditor", () => {
 	let spiedSaveToFile: jest.SpyInstance;
-
-	const editor = new ComposeServiceNetworkEditor({ path: testComposePath, serviceName: mockServiceName });
 
 	beforeEach(() => {
 		spiedSaveToFile = jest.spyOn(ComposeServiceNetworkEditor.prototype as any, "saveToFile");
@@ -58,7 +61,7 @@ describe("ComposeServiceNetworkEditor", () => {
 				}
 			};
 
-			mockReadCompose(initialCompose);
+			const editor = generateMockEditor(initialCompose);
 
 			editor.addNetworkToService(newNetwork);
 
@@ -84,7 +87,7 @@ describe("ComposeServiceNetworkEditor", () => {
 				}
 			};
 
-			mockReadCompose(initialCompose);
+			const editor = generateMockEditor(initialCompose);
 
 			editor.addNetworkToService(newNetwork);
 
@@ -113,7 +116,7 @@ describe("ComposeServiceNetworkEditor", () => {
 				}
 			};
 
-			mockReadCompose(initialCompose);
+			const editor = generateMockEditor(initialCompose);
 
 			editor.removeNetworkFromService("network-to-remove");
 
@@ -140,7 +143,7 @@ describe("ComposeServiceNetworkEditor", () => {
 				}
 			};
 
-			mockReadCompose(initialCompose);
+			const editor = generateMockEditor(initialCompose);
 
 			editor.removeNetworkFromService("non-existing-network");
 
@@ -149,15 +152,12 @@ describe("ComposeServiceNetworkEditor", () => {
 	});
 
 	describe("ComposeServiceNetworkEditor Error Handling", () => {
-		const editor = new ComposeServiceNetworkEditor({ path: testComposePath, serviceName: mockServiceName });
-
 		beforeEach(() => {
 			jest.restoreAllMocks();
 		});
 
 		it("should throw an error if no services are found in compose file", () => {
-			const spiedReadCompose = jest.spyOn(ComposeServiceNetworkEditor.prototype as any, "readCompose");
-			spiedReadCompose.mockReturnValue({});
+			const editor = generateMockEditor({});
 
 			expect(() => {
 				editor["getServicesFromCompose"]();
@@ -165,14 +165,15 @@ describe("ComposeServiceNetworkEditor", () => {
 		});
 
 		it("should throw an error if no such service is found in compose", () => {
-			const spiedReadCompose = jest.spyOn(ComposeServiceNetworkEditor.prototype as any, "readCompose");
-			spiedReadCompose.mockReturnValue({
+			const initialCompose = {
 				services: {
 					anotherService: {
 						image: "test-image"
 					}
 				}
-			});
+			};
+
+			const editor = generateMockEditor(initialCompose);
 
 			expect(() => {
 				editor["getServiceFromCompose"]();
@@ -182,8 +183,7 @@ describe("ComposeServiceNetworkEditor", () => {
 		it("should initialize services as an empty object if undefined", () => {
 			const initialCompose = { networks: {} }; // no services
 
-			const spiedReadCompose = jest.spyOn(ComposeServiceNetworkEditor.prototype as any, "readCompose");
-			spiedReadCompose.mockReturnValue(initialCompose);
+			const editor = generateMockEditor(initialCompose);
 
 			const spiedSaveToFile = jest.spyOn(ComposeServiceNetworkEditor.prototype as any, "saveToFile");
 			spiedSaveToFile.mockImplementation(jest.fn());
