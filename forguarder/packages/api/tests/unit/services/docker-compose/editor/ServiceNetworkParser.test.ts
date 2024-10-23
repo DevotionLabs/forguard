@@ -1,6 +1,6 @@
-import { ListOfStrings } from "../../../../../../src/services/docker-compose/editor/generated/types";
-import { ServiceNetworkParser } from "../../../../../../src/services/docker-compose/editor/ServiceNetworkParser";
-import { ServiceNetworks } from "../../../../../../src/services/docker-compose/editor/types";
+import { ListOfStrings } from "../../../../../src/services/docker-compose/editor/generated/types";
+import { ServiceNetworkParser } from "../../../../../src/services/docker-compose/editor/ServiceNetworkParser";
+import { ServiceNetworks } from "../../../../../src/services/docker-compose/editor/types";
 
 describe("ServiceNetworkParser -> normalize", () => {
 	it("should convert a ListOfStrings to a ServiceNetworks object", () => {

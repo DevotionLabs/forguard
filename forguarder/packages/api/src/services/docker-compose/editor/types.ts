@@ -12,6 +12,6 @@ export type NetworkToAdd = {
 };
 
 // Field "networks" can't be an array or undefined
-export type ComposeServiceWithNetworks = Omit<DefinitionsService, "networks"> & {
+export type ServiceWithNetworks = Omit<DefinitionsService, "networks"> & {
 	networks: ServiceNetworks;
 };

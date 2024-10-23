@@ -1,0 +1,25 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug API unit tests",
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/forguarder/node_modules/.bin/jest",
+			"args": ["--testPathPattern=tests/unit", "--runInBand"],
+			"cwd": "${workspaceFolder}/forguarder/packages/api",
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug API integration tests",
+			"skipFiles": ["<node_internals>/**"],
+			"program": "${workspaceFolder}/forguarder/node_modules/.bin/jest",
+			"args": ["--testPathPattern=tests/integration", "--runInBand"],
+			"cwd": "${workspaceFolder}/forguarder/packages/api",
+			"console": "integratedTerminal"
+		}
+	]
+}

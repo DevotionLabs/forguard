@@ -4,20 +4,27 @@ import { Logger } from "../../../logger/index.js";
 import { ComposeSpecification } from "./generated/types.js";
 
 export abstract class ComposeEditor {
-	protected path: string;
-	protected compose: ComposeSpecification;
+	private path: string;
 
 	constructor(path: string) {
 		this.path = path;
-		this.compose = this.loadFromFile();
+		this.validateComposePath();
+		Logger.info(`Succesfully loaded compose file from path ${this.path}`);
 	}
 
-	private loadFromFile(): ComposeSpecification {
+	private validateComposePath(): void {
+		try {
+			this.readCompose();
+		} catch (error) {
+			throw new Error(`Could not create a ComposeEditor for path ${this.path}: ${error}`);
+		}
+	}
+
+	protected readCompose(): ComposeSpecification {
 		try {
 			return this.parseComposeFile();
 		} catch (error) {
-			Logger.error(`Error loading the compose file: ${error}`);
-			throw error;
+			throw new Error(`Could not load the compose file: ${error}`);
 		}
 	}
 
@@ -26,18 +33,28 @@ export abstract class ComposeEditor {
 		return yaml.load(fileContents) as ComposeSpecification;
 	}
 
-	protected saveToFile() {
+	protected saveToFile(compose: ComposeSpecification) {
 		try {
-			this.writeComposeToFile();
+			this.writeComposeToFile(compose);
 		} catch (error) {
-			Logger.error(`Error saving the compose file: ${error}`);
-			throw error;
+			throw new Error(`Could not save the compose file: ${error}`);
 		}
 	}
 
-	private writeComposeToFile(): void {
-		const yamlStr = yaml.dump(this.compose);
-		writeFileSync(this.path, yamlStr, "utf8");
+	private writeComposeToFile(compose: ComposeSpecification): void {
+		const yamlStr = this.composeToString(compose);
+		writeFileSync(this.path, yamlStr);
 		Logger.info(`Successfully written compose to ${this.path}`);
+	}
+
+	private composeToString(compose: ComposeSpecification): string {
+		const dumpOptions = {
+			indent: 2,
+			noArrayIndent: false,
+			lineWidth: 80,
+			condenseFlow: false
+		};
+
+		return yaml.dump(compose, dumpOptions);
 	}
 }

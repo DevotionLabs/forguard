@@ -1,9 +1,9 @@
-import { ComposeNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeNetworkEditor";
-import { ComposeRootNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
-import { ComposeServiceNetworkEditor } from "../../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor";
+import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/index";
+import { ComposeRootNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor";
+import { ComposeServiceNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor";
 
-jest.mock("../../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor");
-jest.mock("../../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor");
+jest.mock("../../../../../src/services/docker-compose/editor/ComposeRootNetworkEditor");
+jest.mock("../../../../../src/services/docker-compose/editor/ComposeServiceNetworkEditor");
 
 describe("ComposeNetworkEditor", () => {
 	const mockPath = "./mock-docker-compose.yml";
