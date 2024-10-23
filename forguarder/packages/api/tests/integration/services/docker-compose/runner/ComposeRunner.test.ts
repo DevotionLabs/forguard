@@ -1,9 +1,8 @@
 import { execSync } from "child_process";
 import { ComposeRunner } from "../../../../../src/services/docker-compose/runner/ComposeRunner";
-import * as path from "path";
 import { validateDockerInstallation } from "../utils/validateDockerInstallation";
-import { validateFileExists } from "../utils/validateFileExists";
 import { writeComposeToFile } from "../utils/writeTestComposeToFile";
+import { testComposePath } from "../params";
 
 const isContainerRunning = (containerName: string) => {
 	const psOutput = execSync("docker ps --filter 'name=web' --format '{{.Names}}'").toString().trim();
@@ -11,13 +10,11 @@ const isContainerRunning = (containerName: string) => {
 };
 
 describe("ComposeRunner Integration Tests", () => {
-	const testComposePath = path.resolve(__dirname, "../files/docker-compose.yml");
 	const runner = new ComposeRunner(testComposePath);
 	const containerName = "web";
 
 	beforeAll(() => {
 		validateDockerInstallation();
-		validateFileExists(testComposePath);
 	});
 
 	beforeEach(() => {

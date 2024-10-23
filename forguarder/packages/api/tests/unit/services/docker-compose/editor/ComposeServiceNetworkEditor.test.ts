@@ -152,8 +152,6 @@ describe("ComposeServiceNetworkEditor", () => {
 	});
 
 	describe("ComposeServiceNetworkEditor Error Handling", () => {
-		let editor: ComposeServiceNetworkEditor;
-
 		beforeEach(() => {
 			jest.restoreAllMocks();
 		});

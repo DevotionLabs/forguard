@@ -2,7 +2,6 @@ import fs from "fs";
 import yaml from "js-yaml";
 import { ComposeNetworkEditor } from "../../../../../src/services/docker-compose/editor/ComposeNetworkEditor";
 import { validateDockerInstallation } from "../utils/validateDockerInstallation";
-import { validateFileExists } from "../utils/validateFileExists";
 import { ComposeSpecification } from "../../../../../src/services/docker-compose/editor/generated/types";
 import { ServiceNetworkParser } from "../../../../../src/services/docker-compose/editor/ServiceNetworkParser";
 import { areArraysEqual } from "../utils/areArraysEqual";
@@ -43,7 +42,6 @@ describe("ComposeNetworkEditor Integration Tests", () => {
 
 	beforeAll(() => {
 		validateDockerInstallation();
-		validateFileExists(testComposePath);
 	});
 
 	beforeEach(() => {
