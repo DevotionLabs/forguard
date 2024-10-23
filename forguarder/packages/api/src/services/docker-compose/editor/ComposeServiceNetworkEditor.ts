@@ -1,17 +1,18 @@
 import { ComposeEditor } from "./ComposeEditor.js";
+import { ComposeSpecification } from "./generated/types.js";
 import { ServiceNetworkParser } from "./ServiceNetworkParser.js";
-import { ComposeServiceWithNetworks, ServiceNetwork } from "./types.js";
+import { ServiceWithNetworks, ServiceNetwork } from "./types.js";
 
 export class ComposeServiceNetworkEditor extends ComposeEditor {
-	private service: ComposeServiceWithNetworks;
+	private serviceName: string;
 
 	constructor({ path, serviceName }: { path: string; serviceName: string }) {
 		super(path);
-		this.service = this.getServiceWithNetworksFromCompose(serviceName);
+		this.serviceName = serviceName;
 	}
 
-	private getServiceWithNetworksFromCompose(serviceName: string): ComposeServiceWithNetworks {
-		const service = this.getServiceFromCompose(serviceName);
+	private getServiceWithNetworksFromCompose(): ServiceWithNetworks {
+		const service = this.getServiceFromCompose();
 
 		return {
 			...service,
@@ -19,31 +20,46 @@ export class ComposeServiceNetworkEditor extends ComposeEditor {
 		};
 	}
 
-	private getServiceFromCompose(serviceName: string) {
+	private getServiceFromCompose() {
 		const services = this.getServicesFromCompose();
-		const service = services[serviceName];
+		const service = services[this.serviceName];
 
-		if (!service) throw new Error(`No such service found in compose (${serviceName})`);
+		if (!service) throw new Error(`No such service found in compose (${this.serviceName})`);
 
 		return service;
 	}
 
 	private getServicesFromCompose() {
-		const services = this.compose.services;
+		const compose = this.readCompose();
+		const services = compose.services;
 
-		if (!services) throw new Error(`No services found in ${this.path}`);
+		if (!services) throw new Error(`No services found in compose file`);
 
 		return services;
 	}
 
 	// TODO: What if the network is already defined with other properties?
 	public addNetworkToService(newNetwork: { name: string; props: ServiceNetwork }) {
-		this.service.networks[newNetwork.name] = newNetwork.props;
-		this.saveToFile();
+		const service = this.getServiceWithNetworksFromCompose();
+		service.networks[newNetwork.name] = newNetwork.props;
+
+		this.updateServiceInComposeFile(service);
 	}
 
 	public removeNetworkFromService(networkToRemove: string) {
-		delete this.service.networks[networkToRemove];
-		this.saveToFile();
+		const service = this.getServiceWithNetworksFromCompose();
+
+		delete service.networks[networkToRemove];
+
+		this.updateServiceInComposeFile(service);
+	}
+
+	private updateServiceInComposeFile(service: ServiceWithNetworks) {
+		const compose = this.readCompose();
+		if (!compose.services) compose.services = {};
+
+		compose.services[this.serviceName] = service;
+
+		this.saveToFile(compose);
 	}
 }

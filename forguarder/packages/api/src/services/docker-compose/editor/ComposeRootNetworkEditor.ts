@@ -27,12 +27,13 @@ export class ComposeRootNetworkEditor extends ComposeEditor {
 	}
 
 	private getRootNetworks(): PropertiesNetworks {
-		Logger.info(JSON.stringify(this.compose));
-		return this.compose.networks || {};
+		const compose = this.readCompose();
+		return compose.networks || {};
 	}
 
 	private writeRootNetworksToFile(networks: PropertiesNetworks): void {
-		this.compose.networks = networks;
-		this.saveToFile();
+		const compose = this.readCompose();
+		compose.networks = networks;
+		this.saveToFile(compose);
 	}
 }
