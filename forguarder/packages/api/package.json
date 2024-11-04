@@ -8,7 +8,7 @@
 		"node": ">=18"
 	},
 	"scripts": {
-		"build": "tsc --project tsconfig.prod.json",
+		"build": "tsc -p tsconfig.prod.json",
 		"test": "npm run test:unit && npm run test:int",
 		"test:unit": "jest --testPathPattern=tests/unit",
 		"test:int": "jest --testPathPattern=tests/integration",
@@ -23,11 +23,13 @@
 	"author": "Diego (DevotionLabs)",
 	"license": "GPL-3.0",
 	"dependencies": {
+		"@trpc/server": "^10.45.2",
 		"axios": "^1.7.7",
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
 		"express": "^4.21.0",
-		"js-yaml": "^4.1.0"
+		"js-yaml": "^4.1.0",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@openapitools/openapi-generator-cli": "^2.14.0",

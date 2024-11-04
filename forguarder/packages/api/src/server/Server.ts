@@ -1,20 +1,20 @@
 import cors from "cors";
 import express from "express";
-import { ReducedRouter } from "./ReducedRouter.js";
-import { RoutesMap } from "./routes/types.js";
+import * as trpcExpress from "@trpc/server/adapters/express";
 import { ApiConfig } from "../config/types.js";
+import { serverRouter } from "./routes/index.js";
 
 export class Server {
 	private port: number;
 	private api: express.Application;
 
-	constructor(config: ApiConfig, routesMap: RoutesMap) {
+	constructor(config: ApiConfig) {
 		const { apiPort, corsOrigin } = config;
 
 		this.port = apiPort;
 		this.api = express();
 		this.setupCors(corsOrigin);
-		this.setRoutes(routesMap);
+		this.setRoutes();
 	}
 
 	private setupCors(corsOrigin: ApiConfig["corsOrigin"]) {
@@ -25,10 +25,12 @@ export class Server {
 		);
 	}
 
-	private setRoutes(routesMap: RoutesMap) {
-		const customRouter = new ReducedRouter(routesMap);
-		const fullRouter = customRouter.getRouter();
-		this.api.use(fullRouter);
+	private setRoutes() {
+		this.api.use(
+			trpcExpress.createExpressMiddleware({
+				router: serverRouter
+			})
+		);
 	}
 
 	public start() {
