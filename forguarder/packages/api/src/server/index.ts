@@ -1,2 +1,2 @@
-export { routesMap } from "./routes/index.js";
 export { Server } from "./Server.js";
+export { serverRouter } from "./routes/index.js";

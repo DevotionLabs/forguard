@@ -1,20 +1,21 @@
 import cors from "cors";
 import express from "express";
-import { ReducedRouter } from "./ReducedRouter.js";
-import { RoutesMap } from "./routes/types.js";
+import * as trpcExpress from "@trpc/server/adapters/express";
 import { ApiConfig } from "../config/types.js";
+import { AnyRouter } from "@trpc/server";
+import { Logger } from "../logger/Logger.js";
 
 export class Server {
 	private port: number;
 	private api: express.Application;
 
-	constructor(config: ApiConfig, routesMap: RoutesMap) {
+	constructor(config: ApiConfig, router: AnyRouter) {
 		const { apiPort, corsOrigin } = config;
 
 		this.port = apiPort;
 		this.api = express();
 		this.setupCors(corsOrigin);
-		this.setRoutes(routesMap);
+		this.setRouter(router);
 	}
 
 	private setupCors(corsOrigin: ApiConfig["corsOrigin"]) {
@@ -25,15 +26,19 @@ export class Server {
 		);
 	}
 
-	private setRoutes(routesMap: RoutesMap) {
-		const customRouter = new ReducedRouter(routesMap);
-		const fullRouter = customRouter.getRouter();
-		this.api.use(fullRouter);
+	private setRouter(router: AnyRouter) {
+		this.api.use(
+			trpcExpress.createExpressMiddleware({
+				router
+			})
+		);
 	}
 
 	public start() {
-		this.api.listen(this.port, () => {
-			console.log(`ForGuarder server is listening at port ${this.port}`);
-		});
+		this.api.listen(this.port, () => this.logServerStart);
+	}
+
+	private logServerStart() {
+		Logger.info(`ForGuarder server is listening at port ${this.port}`);
 	}
 }

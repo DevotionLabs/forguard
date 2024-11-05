@@ -1,33 +1,24 @@
 import http from "http";
 import request from "supertest";
-import { RoutesMap } from "../../../src/server/routes/types";
 import { Server } from "../../../src/server/index";
 import { ApiConfig } from "../../../src/config/types";
+import { testResponse, testRouter } from "./testRouter";
+import { Logger } from "../../../src/logger/index.js";
 
 describe("Server class", () => {
-	const routesMap: RoutesMap = {
-		"/test": [
-			{
-				method: "get",
-				path: "/route",
-				handler: (_req, res) => {
-					res.status(200).send("Test route working");
-				}
-			}
-		]
-	};
-
 	const apiConfig: ApiConfig = {
 		apiPort: 3001,
 		corsOrigin: "http://localhost:3000"
 	};
 
-	const server = new Server(apiConfig, routesMap);
+	const server = new Server(apiConfig, testRouter);
 
-	it("should set up the routes and respond to /test/route", async () => {
-		const response = await request(server["api"]).get("/test/route");
+	it("should respond to a request to one of the routes", async () => {
+		const route = Object.keys(testRouter)[0];
+
+		const response = await request(server["api"]).get(`/${route}`);
 		expect(response.status).toBe(200);
-		expect(response.text).toBe("Test route working");
+		expect(response.body.result.data.message).toBe(testResponse.message);
 	});
 
 	it("should start the server on the specified port", () => {
@@ -39,5 +30,11 @@ describe("Server class", () => {
 		expect(listenSpy).toHaveBeenCalledWith(apiConfig.apiPort, expect.any(Function));
 
 		listenSpy.mockRestore();
+	});
+
+	it("should log the server start", () => {
+		const loggerSpy = jest.spyOn(Logger, "info");
+		server["logServerStart"]();
+		expect(loggerSpy).toHaveBeenCalled();
 	});
 });
