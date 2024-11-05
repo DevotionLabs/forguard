@@ -7,7 +7,7 @@ import { Logger } from "../../../src/logger/index.js";
 
 describe("Server class", () => {
 	const apiConfig: ApiConfig = {
-		apiPort: 3001,
+		port: 3001,
 		corsOrigin: "http://localhost:3000"
 	};
 
@@ -27,7 +27,7 @@ describe("Server class", () => {
 
 		server.start();
 
-		expect(listenSpy).toHaveBeenCalledWith(apiConfig.apiPort, expect.any(Function));
+		expect(listenSpy).toHaveBeenCalledWith(apiConfig.port, expect.any(Function));
 
 		listenSpy.mockRestore();
 	});

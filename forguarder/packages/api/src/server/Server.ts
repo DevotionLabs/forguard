@@ -10,7 +10,7 @@ export class Server {
 	private api: express.Application;
 
 	constructor(config: ApiConfig, router: AnyRouter) {
-		const { apiPort, corsOrigin } = config;
+		const { port: apiPort, corsOrigin } = config;
 
 		this.port = apiPort;
 		this.api = express();
