@@ -1,14 +1,13 @@
-import { z } from "zod";
-import { AppsDataSchema } from "../schemas.js";
+import { AppsSettings } from "../../../../../appSettingsEngine/schemas.js";
 
-export const getAppsHandler = async (): Promise<z.infer<typeof AppsDataSchema>> => {
+export const getAppsHandler = async (): Promise<AppsSettings> => {
 	// TODO: Do things with input
 
 	return {
 		exampleApp: {
 			exampleService: {
 				vpn: { exposed: true, aliases: ["exampleAlias"] },
-				https: { mappings: [{ exposed: true, subdomain: "example", servicePort: 443 }] }
+				https: { exposed: true, mappings: [{ subdomain: "example", servicePort: 443 }] }
 			}
 		}
 	};

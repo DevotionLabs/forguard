@@ -6,20 +6,22 @@ const VpnSettingsSchema = z.object({
 });
 
 const HttpsMappingSchema = z.object({
-	exposed: z.boolean(),
 	subdomain: z.string(),
 	servicePort: z.number()
 });
 
 const HttpsSettingsSchema = z.object({
+	exposed: z.boolean(),
 	mappings: z.array(HttpsMappingSchema)
 });
 
-const AppServiceDataSchema = z.object({
+const AppServiceSettingsSchema = z.object({
 	vpn: VpnSettingsSchema,
 	https: HttpsSettingsSchema
 });
 
-const AppDataSchema = z.record(z.string(), AppServiceDataSchema);
+const AppSettingsSchema = z.record(z.string(), AppServiceSettingsSchema);
 
-export const AppsDataSchema = z.record(z.string(), AppDataSchema);
+export const AppsSettingsSchema = z.record(z.string(), AppSettingsSchema);
+
+export type AppsSettings = z.infer<typeof AppsSettingsSchema>;
