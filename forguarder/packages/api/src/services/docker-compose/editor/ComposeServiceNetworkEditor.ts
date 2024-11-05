@@ -1,12 +1,13 @@
-import { ComposeEditor } from "./ComposeEditor.js";
+import { ComposeFileProcessor } from "./ComposeFileProcessor.js";
 import { ServiceNetworkParser } from "./ServiceNetworkParser.js";
 import { ServiceWithNetworks, ServiceNetwork } from "./types.js";
 
-export class ComposeServiceNetworkEditor extends ComposeEditor {
+export class ComposeServiceNetworkEditor {
+	private fileProcessor: ComposeFileProcessor;
 	private serviceName: string;
 
 	constructor({ path, serviceName }: { path: string; serviceName: string }) {
-		super(path);
+		this.fileProcessor = new ComposeFileProcessor(path);
 		this.serviceName = serviceName;
 	}
 
@@ -29,7 +30,7 @@ export class ComposeServiceNetworkEditor extends ComposeEditor {
 	}
 
 	private getServicesFromCompose() {
-		const compose = this.readCompose();
+		const compose = this.fileProcessor.readCompose();
 		const services = compose.services;
 
 		if (!services) throw new Error(`No services found in compose file`);
@@ -54,11 +55,11 @@ export class ComposeServiceNetworkEditor extends ComposeEditor {
 	}
 
 	private updateServiceInComposeFile(service: ServiceWithNetworks) {
-		const compose = this.readCompose();
+		const compose = this.fileProcessor.readCompose();
 		if (!compose.services) compose.services = {};
 
 		compose.services[this.serviceName] = service;
 
-		this.saveToFile(compose);
+		this.fileProcessor.saveToFile(compose);
 	}
 }

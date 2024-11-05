@@ -1,10 +1,12 @@
 import { Logger } from "../../../logger/index";
-import { ComposeEditor } from "./ComposeEditor";
+import { ComposeFileProcessor } from "./ComposeFileProcessor";
 import { PropertiesNetworks } from "./generated/types";
 
-export class ComposeRootNetworkEditor extends ComposeEditor {
+export class ComposeRootNetworkEditor {
+	private fileProcessor: ComposeFileProcessor;
+
 	constructor(path: string) {
-		super(path);
+		this.fileProcessor = new ComposeFileProcessor(path);
 	}
 
 	public addExternalNetworkToRoot(networkName: string): void {
@@ -27,13 +29,13 @@ export class ComposeRootNetworkEditor extends ComposeEditor {
 	}
 
 	private getRootNetworks(): PropertiesNetworks {
-		const compose = this.readCompose();
+		const compose = this.fileProcessor.readCompose();
 		return compose.networks || {};
 	}
 
 	private writeRootNetworksToFile(networks: PropertiesNetworks): void {
-		const compose = this.readCompose();
+		const compose = this.fileProcessor.readCompose();
 		compose.networks = networks;
-		this.saveToFile(compose);
+		this.fileProcessor.saveToFile(compose);
 	}
 }
