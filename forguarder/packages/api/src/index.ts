@@ -1,5 +1,5 @@
 import { apiConfig } from "./config/apiConfig.js";
-import { Server } from "./server/index.js";
+import { Server, serverRouter } from "./server/index.js";
 
-const server = new Server(apiConfig);
+const server = new Server(apiConfig, serverRouter);
 server.start();
