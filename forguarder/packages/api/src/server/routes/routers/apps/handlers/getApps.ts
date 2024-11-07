@@ -1,4 +1,4 @@
-import { AppsSettings } from "../../../../../appSettingsEngine/schemas.js";
+import { AppsSettings } from "../../../../../exposureSettingsEngine/types.js";
 
 export const getAppsHandler = async (): Promise<AppsSettings> => {
 	// TODO: Do things with input
@@ -7,7 +7,7 @@ export const getAppsHandler = async (): Promise<AppsSettings> => {
 		exampleApp: {
 			exampleService: {
 				vpn: { exposed: true, aliases: ["exampleAlias"] },
-				https: { exposed: true, mappings: [{ subdomain: "example", servicePort: 443 }] }
+				https: { exposed: true, mappings: [{ domain: "example", servicePort: 443 }] }
 			}
 		}
 	};
