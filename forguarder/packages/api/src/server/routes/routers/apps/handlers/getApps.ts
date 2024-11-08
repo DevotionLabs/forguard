@@ -1,4 +1,4 @@
-import { AppsSettings } from "../../../../../exposureSettingsEngine/types.js";
+import { AppsSettings } from "../../../../../appExposer/types.js";
 
 export const getAppsHandler = async (): Promise<AppsSettings> => {
 	// TODO: Do things with input
