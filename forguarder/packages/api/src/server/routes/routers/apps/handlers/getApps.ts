@@ -1,13 +1,23 @@
-import { AppsSettings } from "../../../../../appExposer/types.js";
+import { ExposureSettings } from "../../../../../appExposer/index.js";
 
-export const getAppsHandler = async (): Promise<AppsSettings> => {
+export const handleGetApps = async (): Promise<ExposureSettings> => {
 	// TODO: Do things with input
 
 	return {
-		exampleApp: {
-			exampleService: {
-				vpn: { exposed: true, aliases: ["exampleAlias"] },
-				https: { exposed: true, mappings: [{ domain: "example", servicePort: 443 }] }
+		apps: {
+			exampleApp: {
+				exampleService: {
+					https: true,
+					wireguard: true
+				}
+			}
+		},
+		mappings: {
+			"example.mydomain.com": {
+				app: "exampleApp",
+				service: "exampleService",
+				port: 80,
+				protocol: "http"
 			}
 		}
 	};

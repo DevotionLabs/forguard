@@ -1,7 +1,7 @@
 import { Logger } from "../../../../../logger/index.js";
-import { AppsSettings } from "../../../../../appExposer/types.js";
+import { ExposureSettings } from "../../../../../appExposer/index.js";
 
-export const updateAppsHandler = async ({ input }: { input: AppsSettings }): Promise<void> => {
+export const handleUpdateApps = async ({ input }: { input: ExposureSettings }): Promise<void> => {
 	// TODO: Do things with input
 	Logger.debug(`Updating apps: ${JSON.stringify(input)}`);
 };

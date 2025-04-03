@@ -2,7 +2,7 @@ import { AppsPaths } from "../config/types.js";
 import { ExposureSettings, HttpsMappings } from "./types.js";
 import { DirectoryReader } from "./DirectoryReader.js";
 import { ExposureSettingsBuilder } from "./ExposureSettingsBuilder.js";
-import { HttpsMappingReader } from "./HttpsMappingReader.js";
+import { HttpsMappingReader } from "./httpsMappingReader/HttpsMappingReader.js";
 
 export class ExposureSettingsReader {
 	private appsPaths: AppsPaths;
