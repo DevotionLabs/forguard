@@ -3,7 +3,7 @@ import yaml from "js-yaml";
 import { Logger } from "../../../logger/index.js";
 import { ComposeSpecification } from "./generated/types.js";
 
-export abstract class ComposeEditor {
+export class ComposeFileProcessor {
 	private path: string;
 
 	constructor(path: string) {
@@ -20,7 +20,7 @@ export abstract class ComposeEditor {
 		}
 	}
 
-	protected readCompose(): ComposeSpecification {
+	public readCompose(): ComposeSpecification {
 		try {
 			return this.parseComposeFile();
 		} catch (error) {
@@ -33,7 +33,7 @@ export abstract class ComposeEditor {
 		return yaml.load(fileContents) as ComposeSpecification;
 	}
 
-	protected saveToFile(compose: ComposeSpecification) {
+	public saveToFile(compose: ComposeSpecification) {
 		try {
 			this.writeComposeToFile(compose);
 		} catch (error) {

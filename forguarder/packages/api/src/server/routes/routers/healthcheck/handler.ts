@@ -1,3 +1,3 @@
-export const healthCheckHandler = async () => {
+export const handleHealthCheck = async () => {
 	return { status: "healthy" };
 };

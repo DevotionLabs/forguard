@@ -1,14 +1,23 @@
-import { z } from "zod";
-import { AppsDataSchema } from "../schemas.js";
+import { ExposureSettings } from "../../../../../appExposer/index.js";
 
-export const getAppsHandler = async (): Promise<z.infer<typeof AppsDataSchema>> => {
+export const handleGetApps = async (): Promise<ExposureSettings> => {
 	// TODO: Do things with input
 
 	return {
-		exampleApp: {
-			exampleService: {
-				vpn: { exposed: true, aliases: ["exampleAlias"] },
-				https: { mappings: [{ exposed: true, subdomain: "example", servicePort: 443 }] }
+		apps: {
+			exampleApp: {
+				exampleService: {
+					https: true,
+					wireguard: true
+				}
+			}
+		},
+		mappings: {
+			"example.mydomain.com": {
+				app: "exampleApp",
+				service: "exampleService",
+				port: 80,
+				protocol: "http"
 			}
 		}
 	};

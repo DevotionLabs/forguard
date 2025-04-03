@@ -12,7 +12,7 @@
 		"test": ""
 	},
 	"dependencies": {
-		"next": "14.2.15",
+		"next": "^15.0.1",
 		"react": "^18",
 		"react-dom": "^18"
 	},
@@ -21,7 +21,7 @@
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
 		"eslint": "^8",
-		"eslint-config-next": "14.2.15",
+		"eslint-config-next": "^15.0.1",
 		"postcss": "^8",
 		"rimraf": "^6.0.1",
 		"tailwindcss": "^3.4.1",

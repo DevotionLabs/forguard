@@ -10,7 +10,7 @@ export class Server {
 	private api: express.Application;
 
 	constructor(config: ApiConfig, router: AnyRouter) {
-		const { apiPort, corsOrigin } = config;
+		const { port: apiPort, corsOrigin } = config;
 
 		this.port = apiPort;
 		this.api = express();
@@ -35,10 +35,6 @@ export class Server {
 	}
 
 	public start() {
-		this.api.listen(this.port, () => this.logServerStart);
-	}
-
-	private logServerStart() {
-		Logger.info(`ForGuarder server is listening at port ${this.port}`);
+		this.api.listen(this.port, () => Logger.info(`ForGuarder server is listening at port ${this.port}`));
 	}
 }
