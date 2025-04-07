@@ -1,5 +1,8 @@
 import { appsRoutes } from "./routers/apps/index.js";
-import { healthCheckRouter } from "./routers/healthcheck/index.js";
-import { mergeRouters } from "./trpc.js";
+import { healthRouter } from "./routers/health/index.js";
+import { router } from "./trpc.js";
 
-export const serverRouter = mergeRouters(healthCheckRouter, appsRoutes);
+export const serverRouter = router({
+	health: healthRouter,
+	apps: appsRoutes
+});

@@ -6,6 +6,6 @@ import { exposureSchemas } from "../../../../appExposer/index.js";
 const { ExposureSettingsSchema } = exposureSchemas;
 
 export const appsRoutes = router({
-	getApps: publicProcedure.output(ExposureSettingsSchema).query(handleGetApps),
-	updateApps: publicProcedure.input(ExposureSettingsSchema).mutation(handleUpdateApps)
+	get: publicProcedure.output(ExposureSettingsSchema).query(handleGetApps),
+	update: publicProcedure.input(ExposureSettingsSchema).mutation(handleUpdateApps)
 });
