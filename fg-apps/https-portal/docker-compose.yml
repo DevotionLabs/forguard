@@ -1,0 +1,19 @@
+services:
+  https-portal:
+    build:
+      context: https-portal
+      args:
+        HTTPS_PORTAL_VERSION: 1.24.2
+    ports:
+      - "80:80"
+      - "443:443"
+    container_name: https-portal
+    restart: unless-stopped
+    environment:
+      DOMAINS: "test.undevfinedtest.es-> http://nginx:80"
+    networks:
+      https_network: {}
+
+networks:
+  https_network:
+    external: true

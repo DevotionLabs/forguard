@@ -1,0 +1,39 @@
+services:
+  wireguard:
+    build:
+      context: wireguard
+      args:
+        WIREGUARD_VERSION: 1.0.20210914
+    container_name: wireguard
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      PEERS: 1 # If a number or a comma-separated string is set here, WG is run in server mode
+      TZ: Etc/UTC
+      SERVERPORT: 51820
+      PEERDNS: 172.16.0.190 # dnsmasq will forward the requests to the docker DNS server
+      ALLOWEDIPS: 172.16.0.0/24
+      LOG_CONFS: true # Outputs the server/client config in logs (a QR)
+      PUID: 1000
+      PGID: 1000
+    ports:
+      - 51820:51820/udp
+    volumes:
+      - "wg_config:/config"
+      - "/lib/modules:/lib/modules" # To ensure iptables kernel modules are loaded
+    networks:
+      wg_network:
+        ipv4_address: 172.16.0.190
+        aliases:
+          - wireguard.wireguard.fg
+    sysctls:
+      net.ipv4.conf.all.src_valid_mark: 1
+
+volumes:
+  wg_config: {}
+
+networks:
+  wg_network:
+    external: true
